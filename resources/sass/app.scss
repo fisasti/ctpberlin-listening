@@ -1,1 +1,28 @@
-//
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+@font-face {
+    font-family: 'Favorit';
+    src: url("/fonts/Favorit-Regular.ttf") format("ttf");
+  }
+  @font-face {
+    font-family: 'Favorit Light';
+    font-weight: 300;
+    src: url("/fonts/Favorit-Light.ttf") format("ttf");
+  }
+
+body {
+    font-family: 'Favorit';
+}
+.favorit {
+    font-family: 'Favorit';
+}
+.favorit-light {
+    font-family: 'Favorit Light';
+}

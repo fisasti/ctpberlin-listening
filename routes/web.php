@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\User;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,5 +16,9 @@ use Illuminate\Support\Facades\Route;
 /* Route::get('/', function () {
     return view('welcome');
 }); */
-Route::get('/', 'WelcomeController@index');
-Route::resource('videos', 'WelcomeController', ['only' => ['store', 'destroy']]);
+Auth::login(User::first());
+Route::get('/', 'FormController@index');
+Route::get('/generateSubs', 'VideoWalkController@generateSubs');
+Route::resource('videos', 'FormController', ['only' => ['store', 'destroy']]);
+
+Auth::routes(['register' => false]);

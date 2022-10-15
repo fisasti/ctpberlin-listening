@@ -15,11 +15,13 @@
         "kfirba/directo": "^0.2.0",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
-        "league/flysystem-aws-s3-v3": "~1.0"
+        "league/flysystem-aws-s3-v3": "~1.0",
+        "muxinc/mux-php": ">=1.0.0"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.9.1",
+        "laravel/ui": "^2.5",
         "mockery/mockery": "^1.3.1",
         "nunomaduro/collision": "^4.1",
         "phpunit/phpunit": "^8.5"
