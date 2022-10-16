@@ -11,6 +11,7 @@ use GuzzleHttp;
 use MuxPhp;
 use MuxPhp\Api\PlaybackIDApi;
 use Config;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
@@ -46,6 +47,27 @@ class VideoWalkController extends Controller {
         }
 
         return response()->json($result);
+    }
+
+    public function webhookMuxAssetCreated(Request $request) {
+        if ($request['type'] == 'video.asset.ready') {
+            $muxId = $request['data']['id'];
+            $playbackId = $request['data']['playback_ids'][0]['id'];
+            $videoDuration = $request['data']['duration'];
+            $videoWalk = VideoWalk::where('muxId', $muxId)->firstOrFail();
+
+            $videoWalk->streamUrl = 'https://stream.mux.com/' . $playbackId . '.m3u8';
+            $videoWalk->state = 3;
+            $videoWalk->save();
+            
+            $this->downloadMuxThumb($videoWalk->id, $playbackId);
+            $this->generateSubs($videoWalk->id);
+            
+            Log::info($muxId);
+            Log::info($playbackId);
+            Log::info($videoDuration);
+            Log::info($request);
+        }
     }
 
     public function transcodeVideo(Request $request) {
@@ -118,16 +140,20 @@ class VideoWalkController extends Controller {
 
         if (!$hasThumbnail && !empty($streamUrl)) {
             $playbackId = str_replace(array('https://stream.mux.com/', '.m3u8'), '', $streamUrl);
-            $url = 'https://image.mux.com/' . $playbackId . '/thumbnail.jpg';
-
-            $thumbnail = 'thumbs/' . $id . '.jpg';
-            Storage::disk('public')->put($thumbnail, file_get_contents($url));
+            $this->downloadMuxThumb($id, $playbackId);
         }
 
         return response()->json(['streamUrl' => $streamUrl,
         'status' => $status,
         'subtitlesUrl' => $subtitlesUrl,
         'thumbnail' => $thumbnail]);
+    }
+
+    function downloadMuxThumb($videoId, $playbackId) {
+        $url = 'https://image.mux.com/' . $playbackId . '/thumbnail.jpg';
+
+        $thumbnail = 'thumbs/' . $videoId . '.jpg';
+        Storage::disk('public')->put($thumbnail, file_get_contents($url));
     }
 
     public function generateSubs($videoId) {

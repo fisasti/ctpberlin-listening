@@ -182,6 +182,7 @@
                 params.append('id', videoId);
 
                 $('#upload-state').fadeOut(400, function() {
+                    $('#upload-stats').hide();
                     $(this).html("Your video is now uploaded and it is being processed. This may take a while, but if you do not want to wait you can just come back later as your video will be automatically generated.").fadeIn(400);
                 });
 
