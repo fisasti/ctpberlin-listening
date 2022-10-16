@@ -26,7 +26,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script type="text/javascript">
-      const API_BASE = document.location.href.indexOf('localhost') >= 0 ? '/api/' : '/geovisualizador/api/';
+      const API_BASE = document.location.href.indexOf('localhost') >= 0 ? '/api/' : '/listeningtothecity/api/';
       const API_TOKEN = '{{ auth()->user()->api_token }}';
     </script>
     <!-- Styles -->
