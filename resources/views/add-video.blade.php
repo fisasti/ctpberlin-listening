@@ -256,7 +256,7 @@ background: white;
     width: 100%;
     height: 100%;
     display: none;
-    background-image: url('/img/play-icon.png');
+    background-image: url("{{ asset('/img/play-icon.png') }}");
     background-repeat: no-repeat;
     background-position: center;
 }
