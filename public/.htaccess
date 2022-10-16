@@ -1,4 +1,5 @@
 <IfModule mod_rewrite.c>
+    RewriteBase /listeningtothecity/
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
     </IfModule>
