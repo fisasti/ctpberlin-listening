@@ -78,8 +78,8 @@
         });
     }
 
-    function loadVideo() {
-
+    function loadVideo(id) {
+        $('#video-entries div[data-id=' + id + ']').trigger('click');
     }
 
     $(document).ready(function() {
@@ -96,11 +96,12 @@
             // put your default event here
         });
 
-        $('.video-thumb').click(function() {
+        $(document).on('click', '.video-thumb', function() {
             var videoId = $(this).data('id');
 
             if (!videoId)
                 return false;
+            
             var src = $(this).data('src');
             var poster = $(this).data('poster');
             var subs = $(this).data('subs');
@@ -127,12 +128,20 @@
             
             $('#videoModal').modal('show')
             // video.appendChild(source);
-        })
-        $('.video-thumb').hover(function(){
+        });
+        $(document).on({
+            mouseenter: function () {
+                $(this).find('.video-details, .play-icon').show();
+            },
+            mouseleave: function () {
+                $(this).find('.video-details, .play-icon').hide();
+            }
+        }, ".video-thumb"); 
+        /* $('.video-thumb').hover(function(){
             $(this).find('.video-details, .play-icon').show();
         },function(){
             $(this).find('.video-details, .play-icon').hide();
-        });
+        }); */
 
         $('.video-js').each(function () {
             // videojs(this);
@@ -183,6 +192,7 @@
 
                 $('#upload-state').fadeOut(400, function() {
                     $('#upload-stats').hide();
+                    $('.progress').hide();
                     $(this).html("Your video is now uploaded and it is being processed. This may take a while, but if you do not want to wait you can just come back later as your video will be automatically generated.").fadeIn(400);
                 });
 
@@ -192,10 +202,20 @@
                         data: params, type: 'POST', processData: false, contentType: false,
                         success: function(data) {
                             console.log(data);
-                            if (data.status == 'ready') {
+                            if (data.state == '3') {
                                 console.log('corto el loop');
                                 $('#upload-state').fadeOut(400, function() {
-                                $(this).html("Your video is now ready!").fadeIn(400);
+                                $(this).html("Your video is now ready! <a href='#' onclick='loadVideo(" + data.id + ");'>Watch video</a>").fadeIn(400);
+                                var newVideo = '<div class="col-3 py-2">';
+                                newVideo += '<div style="position: relative;" class="video-thumb" data-id="' + data.id + '"';
+                                newVideo += 'data-src="' + data.streamUrl + '" data-poster="' + data.poster + '"';
+                                newVideo += 'data-subs="' + data.subtitles + '">';
+                                newVideo += '<img src="' + data.poster + '" style="max-width: 100%; height: auto;" />';
+                                newVideo += '<div class="play-icon"></div>';
+                                newVideo += '<div class="video-details text-left" style="display: none;">';
+                                newVideo += '<span>City of ' + data.city + ' | ' + data.name + '</span>';
+                                newVideo += '</div></div></div>';
+                                $('#video-entries').append(newVideo);
                             });
                             
                                 clearInterval(myInterval);
@@ -330,13 +350,13 @@ h1 { font-size: 3rem; }
     </div>
     <div id="video-gallery" class="card border-1 mt-2">
         <h2 class="text-left">WALKS AROUND THE CITIES</h2>
-        <div class="row">
+        <div class="row" id="video-entries">
         @foreach ($videos as $video)
             <div class="col-3 py-2">
                 <div style="position: relative;" class="video-thumb" data-id="{{ $video->id }}"
                 data-src="{{ $video->streamUrl }}" data-poster="{{ $video->poster }}"
                 data-subs="{{ $video->subtitles }}">
-                    <img src="{{ asset('storage/thumbs/' . $video->id . '.jpg') }}" style="max-width: 100%; height: auto;" />
+                    <img src="{{ $video->poster }}" style="max-width: 100%; height: auto;" />
                     <div class="play-icon">
                     </div>
                     <div class="video-details text-left" style="display: none;">

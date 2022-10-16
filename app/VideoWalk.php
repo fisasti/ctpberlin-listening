@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Storage;
 
 class VideoWalk extends Model
 {
+    protected $fillable = ['id', 'name', 'city', 'muxId', 'state', 'streamUrl', 'videoUrl'];
+    protected $appends = ['subtitles', 'poster'];
+
     public function getSubtitlesAttribute() {
         $subsPath = '/subs/' . $this->id . '.vtt';
 

@@ -62,7 +62,7 @@ class VideoWalkController extends Controller {
             
             $this->downloadMuxThumb($videoWalk->id, $playbackId);
             $this->generateSubs($videoWalk->id);
-            
+
             Log::info($muxId);
             Log::info($playbackId);
             Log::info($videoDuration);
@@ -143,10 +143,8 @@ class VideoWalkController extends Controller {
             $this->downloadMuxThumb($id, $playbackId);
         }
 
-        return response()->json(['streamUrl' => $streamUrl,
-        'status' => $status,
-        'subtitlesUrl' => $subtitlesUrl,
-        'thumbnail' => $thumbnail]);
+        $videoWalk->refresh();
+        return response()->json($videoWalk->toArray());
     }
 
     function downloadMuxThumb($videoId, $playbackId) {
