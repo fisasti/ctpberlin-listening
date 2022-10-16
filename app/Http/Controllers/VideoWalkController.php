@@ -132,6 +132,8 @@ class VideoWalkController extends Controller {
 
     public function generateSubs($videoId) {
         $masterSubs = Storage::disk('local')->get('masterSubs.txt');
+        $videoWalk = VideoWalk::findOrFail($videoId);
+        $masterSubs = str_replace('CITYNAME', $videoWalk->city, $masterSubs);
         $masterParagraphs = explode("\r\n\r\n", $masterSubs);
         $lineBreak = "\r\n";
         $subtitle = "";

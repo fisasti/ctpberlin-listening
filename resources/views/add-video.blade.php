@@ -244,6 +244,7 @@ h1 { font-size: 3rem; }
         </div>
     </div>
     <div id="video-gallery">
+        <h2 class="text-left card border-1">WALKS AROUND THE CITIES</h2>
         <div class="row">
         @foreach ($videos as $video)
             <div class="col-2 py-2">
