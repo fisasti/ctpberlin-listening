@@ -24,13 +24,13 @@
     <!-- <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" data-auto-replace-svg="nest"></script> -->
 
     <!-- Scripts -->
-    <script src="{{ mix('js/app.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     <script type="text/javascript">
       const API_BASE = document.location.href.indexOf('localhost') >= 0 ? '/api/' : '/geovisualizador/api/';
       const API_TOKEN = '{{ auth()->user()->api_token }}';
     </script>
     <!-- Styles -->
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app" class="vh-100">
