@@ -15,9 +15,10 @@
     <script src="https://malsup.github.io/jquery.form.js"></script> 
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/js/bootstrap.min.js" integrity="sha512-EKWWs1ZcA2ZY9lbLISPz8aGR2+L7JVYqBAYTq5AXgBkSjRSuQEGqWx8R1zAX16KdXPaCjOCaKE8MCpU0wcHlHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link href="https://unpkg.com/video.js/dist/video-js.css" rel="stylesheet">
     <script src="https://unpkg.com/video.js/dist/video.js"></script>
-    <script src="https://unpkg.com/videojs-contrib-hls/dist/videojs-contrib-hls.js"></script>
+    <script src="https://unpkg.com/@videojs/http-streaming@2.15.0/dist/videojs-http-streaming.js"></script>
     <!-- Fonts -->
     <!-- <link rel="dns-prefetch" href="//fonts.gstatic.com"> 
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> -->

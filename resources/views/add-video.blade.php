@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 @section('content')
 <script>
+    var videoPlayer = false;
     videoId = -1;
     uploadStart = 0;
 
@@ -77,6 +78,10 @@
         });
     }
 
+    function loadVideo() {
+
+    }
+
     $(document).ready(function() {
         var bar = $('#progressBar');
         var percent = $('.percent');
@@ -84,8 +89,53 @@
         var file = $('#upload-input');
         $('#error-msg').hide();
 
+        $("#videoModal").on("hidden.bs.modal", function () {
+            console.log('modal cerrado');
+            if (videoPlayer)
+                videoPlayer.pause();
+            // put your default event here
+        });
+
+        $('.video-thumb').click(function() {
+            var videoId = $(this).data('id');
+
+            if (!videoId)
+                return false;
+            var src = $(this).data('src');
+            var poster = $(this).data('poster');
+            var subs = $(this).data('subs');
+            console.log('configuro video ' + videoId + ' ' + subs);
+            var myModal = new bootstrap.Modal(document.getElementById("videoModal"), {});
+
+            videoPlayer = videojs('#video-player', {
+                poster: poster,
+                sources: [{src: src, type: 'application/x-mpegURL'}],
+                tracks: [
+                    { src: subs, kind: 'captions', srclang: 'en', label: 'English', default: true}
+                ]
+            });
+
+            videoPlayer.ready(function(){
+                var settings = this.textTrackSettings;
+                settings.setValues({
+                        "backgroundColor": "#000",
+                        "backgroundOpacity": "0",
+                        "edgeStyle": "uniform",
+                    });
+                    settings.updateDisplay();
+            });
+            
+            $('#videoModal').modal('show')
+            // video.appendChild(source);
+        })
+        $('.video-thumb').hover(function(){
+            $(this).find('.video-details, .play-icon').show();
+        },function(){
+            $(this).find('.video-details, .play-icon').hide();
+        });
+
         $('.video-js').each(function () {
-            videojs(this);
+            // videojs(this);
         });
 
         $(file).on('change', () => {
@@ -164,10 +214,6 @@ background: white;
 .progress-bar {
     height: 100%;
 }
-.video-thumb {
-    width: 100%;
-    height: 100%;
-}
 .initial-form {
     max-height: 900px;
 }
@@ -181,6 +227,43 @@ background: white;
     overflow: hidden;
     transition: 1s ease;
 }
+.video-details {
+    position: absolute; 
+    bottom: 0; 
+    left: 0; 
+    width: 100%; 
+    color: white;
+    background-color: rgba(0,0,0,0.6);
+    height: 30%; 
+    display: none;
+    text-align: center;
+    cursor: pointer;
+}
+.video-details span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.5rem;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: bold;
+}
+.play-icon {
+    z-index: 1;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    background-image: url('/img/play-icon.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.vjs-text-track-cue div, .vjs-text-track-cue-en {
+    font-family: 'Favorit' !important;
+    top: 45% !important;
+}
 .direct-upload input { font-size: 1.5rem; }
 .instructions { font-size: 1.5rem; }
 .instructions .small { font-size: 1.2rem; line-height: 1.2rem; }
@@ -190,6 +273,7 @@ background: white;
 }
 ol { padding-left: 1rem !important;}
 h1 { font-size: 3rem; }
+
 </style>
 <div class="container">
     <div class="w-100 text-center">
@@ -243,20 +327,34 @@ h1 { font-size: 3rem; }
             </div>
         </div>
     </div>
-    <div id="video-gallery">
-        <h2 class="text-left card border-1">WALKS AROUND THE CITIES</h2>
+    <div id="video-gallery" class="card border-1 mt-2">
+        <h2 class="text-left">WALKS AROUND THE CITIES</h2>
         <div class="row">
         @foreach ($videos as $video)
-            <div class="col-2 py-2">
-                <video controls class="video-thumb video-js vjs-fluid vjs-default-skin vjs-big-play-centered">
-                    <source src="{{ $video->streamUrl }}" type="application/x-mpegURL" />
-                    @if (!empty($video->subtitles))
-                    <track label="Subtitles" kind="subtitles" srclang="en" src="{{ $video->subtitles }}" default />
-                    @endif
-                </video>
+            <div class="col-3 py-2">
+                <div style="position: relative;" class="video-thumb" data-id="{{ $video->id }}"
+                data-src="{{ $video->streamUrl }}" data-poster="{{ $video->poster }}"
+                data-subs="{{ $video->subtitles }}">
+                    <img src="{{ asset('storage/thumbs/' . $video->id . '.jpg') }}" style="max-width: 100%; height: auto;" />
+                    <div class="play-icon">
+                    </div>
+                    <div class="video-details text-left" style="display: none;">
+                        <span>City of {{ $video->city }} | {{ $video->name }}</span>
+                    </div>
+                </div>
             </div>
         @endforeach
         </div>
     </div>
+    <div class="modal fade" tabindex="-1" id="videoModal">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <video controls class="video-thumb video-js vjs-fluid vjs-default-skin vjs-big-play-centered" id="video-player">
+                    </video>
+                </div>
+            </div>
+        </div>
+        </div>
 </div>
 @stop

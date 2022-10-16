@@ -51,8 +51,8 @@ class VideoWalkController extends Controller {
     public function transcodeVideo(Request $request) {
         $id = $request->has('id') ? intval($request->id) : -1;
         $videoWalk = VideoWalk::findOrFail($id);
-        $hasThumbnail = Storage::exists('thumbs/' . $id . '.jpg');
-        $hasSubtitles = Storage::exists('subs/' . $id . '.vtt');
+        $hasThumbnail = Storage::disk('public')->exists('thumbs/' . $id . '.jpg');
+        $hasSubtitles = Storage::disk('public')->exists('subs/' . $id . '.vtt');
         $thumbnail = $hasThumbnail ? 'thumbs/' . $id . '.jpg' : '';
         $videoDuration = -1;
         $streamUrl = '';
