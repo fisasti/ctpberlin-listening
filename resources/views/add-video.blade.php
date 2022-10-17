@@ -31,12 +31,16 @@
         var city = $('#city').val();
         var path = $('#upload-input').val();
         var extension = path.substring(path.lastIndexOf('.') + 1);
+        var error = '';
         $('#error-msg').hide();
 
-        if (exts.indexOf(extension) < 0) {
+        if (path.length == 0)
+            error = 'Please, select your video file.';
+        else if (exts.indexOf(extension) < 0)
             error = 'The video extension should be contained in this list: ' + exts.join(', ') + '.'; 
-            $('#error-msg').html(error).show();
         
+        if (error.length > 0) {
+            $('#error-msg').html(error).show();
             return false;
         }
         
@@ -147,9 +151,9 @@
             // videojs(this);
         });
 
-        $(file).on('change', () => {
+        /* $(file).on('change', () => {
             $('#upload-btn').prop('disabled', file.val().length == 0)
-        })
+        }) */
 
         $('form').ajaxForm({
             beforeSend: function() {
@@ -239,7 +243,7 @@ background: white;
     max-height: 900px;
 }
 .initial-form input {
-    font-size: 2rem;
+    font-size: 2.4rem;
 }
 .initial-form-hidden {
     max-height: 0 !important;
@@ -286,37 +290,55 @@ background: white;
     top: 45% !important;
 }
 .direct-upload input { font-size: 1.5rem; }
-.instructions { font-size: 1.5rem; }
-.instructions .small { font-size: 1.2rem; line-height: 1.2rem; }
-#upload-btn { font-size: 1.5rem; }
+.instructions { font-size: 1.5rem; color: black;}
+.instructions .small { font-size: 1.4rem; line-height: 1.7rem; display: block; color: #4A4A4A;}
+#upload-btn { font-size: 1.7rem; background-color: #004CFF !important;}
 .progress, .progress-bar {
     height: 5vh !important;
 }
 ol { padding-left: 1rem !important;}
-h1 { font-size: 3rem; }
-
+h1 { font-size: 2.5rem;}
+h4 { }
+.about {
+    font-size: 1.4rem;
+    line-height: 1.7rem;
+    text-align: justify;
+    padding-right: 5vw;
+    color: #4A4A4A;
+}
 </style>
 <div class="container">
     <div class="w-100 text-center">
-        <div class="card border-1 text-center mt-2 py-2">
+        <div class="card border-0 text-left mt-2 py-2 w-100">
             <h1>LISTENING TO THE CITY AS A FORM OF WRITING</h1>
-            <div class="initial-form">
-                <div class="text-justify p-3 col-12 w-100">
-                    <h2>INSTRUCTIONS</h2>
+            <h4>a soundwalk project by Julián Galay</h4><br /><br />
+            <div class="about">The proposal for this soundwalk is divided in two: in the first part you will walk and listen, while recording, around your city. In the second part we will recollect on that experience to rethink the sound of our city. How could we talk about listening without superimposing the sound of our voice to the sound of the landscape?<br /><br />
+
+            The first edition of "Listening to the city as a form of writing" was developed in between
+            Haus de Statistics and Satellit, in Berlin on May 18 2022, together with Peter Schmidt and
+            Erik Goengrich. This second edition, composed especially for the Club Tipping Point Berlin
+            website, was realized in correspondence with Christoph Gosepath, Emilia Pascarelli and
+            Federico Isasti.<br /><br />
+        Julián Galay is an “undisciplinary” composer that works with sound, moving image and
+        language through installation, performance and experimental film. He often explores the
+        unconscious of architectural spaces and institutions through personal diaries, dreams and
+        archives. — <a href="http://www.juliangalay.com" target="_blank">www.juliangalay.com</a>
+            </div>
+            <div class="initial-form mt-5">
+                <div class="text-justify col-12 w-100 pl-0">
+                    <h1>INSTRUCTIONS</h1>
                     <div class="instructions">
-                        <ol>
-                            <li>Leave the Internet and go for a walk in the city.*</li>
-                            <li>Film 10 minutes using the cellphone in horizontal format.**</li> 
-                            <li>Walk paying attention to the sounds and the environment.***</li> 
-                            <li>After coming back: Upload the video to the CTP website and wait.****</li>
-                        </ol>
-                        <span class="small">*You can walk alone or accompanied and at any pace (faster, slower or even stop). **Without talking. Filming is free (you are allowed to lose control, change the point of view, etc). You can use the zoom, not use it and also generate more abstract images. You don't need to be looking at what you are filming while filming. ***Let yourself be guided by sounds. ****Re-watch and re-listen to the experience while reading.</span>
+                        01. Leave the Internet and go for a walk in the city.*<br />
+                        02. Film 10 minutes using the cellphone in horizontal format.**<br />
+                        03. Walk paying attention to the sounds and the environment.***<br />
+                        04. After coming back: Upload the video to the CTP website and wait.****<br />
+                        <span class="small mt-5">*You can walk alone or accompanied and at any pace (faster, slower or even stop). **Without talking. Filming is free (you are allowed to lose control, change the point of view, etc). You can use the zoom, not use it and also generate more abstract images. You don't need to be looking at what you are filming while filming. ***Let yourself be guided by sounds. ****Re-watch and re-listen to the experience while reading.</span><br />
                     </div>
                 </div>
-                <div class="col-md-10 offset-md-1">
+                <div class="col-md-8 offset-md-2">
                     <div id="error-msg" class="alert alert-danger fs-4" role="alert"></div>
                 </div>
-                <div class="text-left p-3 col-6 offset-md-3 w-100">
+                <div class="text-left p-3 col-8 offset-md-2 w-100">
                     <form method="POST" class="w-100 mx-auto">
                         <div class="form-group">
                             <!-- <label for="name">Name</label> -->
@@ -330,7 +352,7 @@ h1 { font-size: 3rem; }
                         <input class="form-control fileinput-button my-2" type="file" id="upload-input" name="file">
                     </form>
                     <div class="text-center">
-                        <button type="button" class="btn btn-primary start" id="upload-btn" disabled onclick="getPresignedUrl()">Upload</button>
+                        <button type="button" class="btn btn-primary start" id="upload-btn" onclick="getPresignedUrl()">Upload</button>
                     </div>
                 </div>
             </div>
@@ -348,9 +370,9 @@ h1 { font-size: 3rem; }
             </div>
         </div>
     </div>
-    <div id="video-gallery" class="card border-1 mt-2">
-        <h2 class="text-left">WALKS AROUND THE CITIES</h2>
-        <div class="row" id="video-entries">
+    <div id="video-gallery" class="card border-0 mt-2">
+        <h2 class="text-left">WALKS & CITIES</h2>
+        <div class="row mt-4" id="video-entries">
         @foreach ($videos as $video)
             <div class="col-3 py-2">
                 <div style="position: relative;" class="video-thumb" data-id="{{ $video->id }}"

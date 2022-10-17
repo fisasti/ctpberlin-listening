@@ -8,17 +8,19 @@
 @import '~bootstrap/scss/bootstrap';
 
 @font-face {
-    font-family: 'Favorit';
+    font-family: 'Favorit Regular';
     src: url("/fonts/Favorit-Regular.ttf") format("ttf");
+    src: url("/fonts/Favorit-Regular.otf") format("opentype");
   }
   @font-face {
     font-family: 'Favorit Light';
     font-weight: 300;
     src: url("/fonts/Favorit-Light.ttf") format("ttf");
+    src: url("/fonts/Favorit-Light.otf") format("opentype");
   }
 
-body {
-    font-family: 'Favorit';
+* {
+    font-family: 'Favorit Regular';
 }
 .favorit {
     font-family: 'Favorit';
