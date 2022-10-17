@@ -233,6 +233,21 @@
     });
 </script>
 <style>
+@font-face {
+    font-family: 'Favorit Regular';
+    src: url("{{ asset('/fonts/Favorit-Regular.ttf') }}") format("ttf");
+    src: url("{{ asset('/fonts/Favorit-Regular.otf') }}") format("opentype");
+  }
+  @font-face {
+    font-family: 'Favorit Light';
+    font-weight: 300;
+    src: url("{{ asset('/fonts/Favorit-Light.ttf') }}") format("ttf");
+    src: url("{{ asset('/fonts/Favorit-Light.otf') }}") format("opentype");
+  }
+
+* {
+    font-family: 'Favorit Regular' !important;
+}
 body, .card{
 background: white;
 }
@@ -270,8 +285,7 @@ background: white;
     align-items: center;
     margin-top: 0.5rem;
     width: 100%;
-    font-size: 1rem;
-    font-weight: bold;
+    font-size: 0.9rem;
 }
 .play-icon {
     z-index: 1;
@@ -382,7 +396,7 @@ h4 { }
                     <div class="play-icon">
                     </div>
                     <div class="video-details text-left" style="display: none;">
-                        <span>City of {{ $video->city }} | {{ $video->name }}</span>
+                        <span>{{ $video->city }} | {{ $video->name }}</span>
                     </div>
                 </div>
             </div>
