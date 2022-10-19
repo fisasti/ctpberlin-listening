@@ -245,7 +245,7 @@
     src: url("{{ asset('/fonts/Favorit-Light.otf') }}") format("opentype");
   }
 
-* {
+h1,h4, .instructions, #video-gallery, .about, input {
     font-family: 'Favorit Regular' !important;
 }
 body, .card{
@@ -255,7 +255,7 @@ background: white;
     height: 100%;
 }
 .initial-form {
-    max-height: 900px;
+    max-height: 3000px;
 }
 .initial-form input {
     font-size: 2.4rem;
@@ -311,7 +311,29 @@ background: white;
     height: 5vh !important;
 }
 ol { padding-left: 1rem !important;}
-h1 { font-size: 2.5rem;}
+h1 { 
+    font-size: 2.5rem;
+}
+@media (max-width: 575.98px) { 
+    h1 {
+        font-size: 2rem;
+    }
+    #upload-btn {
+        font-size: 1.3rem;
+    }
+    .about {
+        padding-right: 0;
+    }
+    .initial-form input {
+        font-size: 1.5rem;
+    }
+    .instructions {
+        font-size: 1.3rem;
+    }
+    .instructions .small {
+        font-size: 1.1rem;
+    }
+}
 h4 { }
 .about {
     font-size: 1.4rem;
@@ -352,7 +374,7 @@ h4 { }
                 <div class="col-md-8 offset-md-2">
                     <div id="error-msg" class="alert alert-danger fs-4" role="alert"></div>
                 </div>
-                <div class="text-left p-3 col-8 offset-md-2 w-100">
+                <div class="text-left p-3 col-md-8 offset-md-2 col-12 w-100">
                     <form method="POST" class="w-100 mx-auto">
                         <div class="form-group">
                             <!-- <label for="name">Name</label> -->
@@ -386,9 +408,9 @@ h4 { }
     </div>
     <div id="video-gallery" class="card border-0 mt-2">
         <h2 class="text-left">WALKS & CITIES</h2>
-        <div class="row mt-4" id="video-entries">
+        <div class="row mt-md-4 mt-1" id="video-entries">
         @foreach ($videos as $video)
-            <div class="col-3 py-2">
+            <div class="col-md-3 col-6 py-2">
                 <div style="position: relative;" class="video-thumb" data-id="{{ $video->id }}"
                 data-src="{{ $video->streamUrl }}" data-poster="{{ $video->poster }}"
                 data-subs="{{ $video->subtitles }}">
@@ -404,7 +426,7 @@ h4 { }
         </div>
     </div>
     <div class="modal fade" tabindex="-1" id="videoModal">
-        <div class="modal-dialog modal-xl">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
                 <div class="modal-body">
                     <video controls class="video-thumb video-js vjs-fluid vjs-default-skin vjs-big-play-centered" id="video-player">
