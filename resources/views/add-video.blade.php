@@ -321,6 +321,7 @@ ol { padding-left: 1rem !important;}
 h1 { 
     font-size: 2.5rem;
 }
+.video-thumb img { max-height: 140px; }
 @media (max-width: 575.98px) { 
     h1 {
         font-size: 2rem;
