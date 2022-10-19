@@ -121,11 +121,11 @@
             });
 
             // FIX FOR CELL PHONES
-            player.landscapeFullscreen(
+            player.landscapeFullscreen({
                 fullscreen: {
                     alwaysInLandscapeMode: true, // Always enter fullscreen in landscape mode even when device is in portrait mode (works on chromium, firefox, and ie >= 11)
                 }
-            );
+            });
 
             videoPlayer.ready(function(){
                 var settings = this.textTrackSettings;
