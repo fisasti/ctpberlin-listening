@@ -252,7 +252,7 @@
     src: url("{{ asset('/fonts/Favorit-Light.otf') }}") format("opentype");
   }
 
-h1,h4, .instructions, #video-gallery, .about, input {
+h1,h4, .instructions, #video-gallery, .video-details, .about, input {
     font-family: 'Favorit Regular' !important;
 }
 body, .card{
@@ -290,7 +290,7 @@ background: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 0.5rem;
+    height: 100%;
     width: 100%;
     font-size: 0.9rem;
 }
@@ -417,7 +417,7 @@ h4 { }
         <h2 class="text-left">WALKS & CITIES</h2>
         <div class="row mt-md-4 mt-1" id="video-entries">
         @foreach ($videos as $video)
-            <div class="col-md-3 col-6 py-2">
+            <div class="col-md-3 col-6 p-2">
                 <div style="position: relative;" class="video-thumb" data-id="{{ $video->id }}"
                 data-src="{{ $video->streamUrl }}" data-poster="{{ $video->poster }}"
                 data-subs="{{ $video->subtitles }}">
@@ -433,7 +433,7 @@ h4 { }
         </div>
     </div>
     <div class="modal fade" tabindex="-1" id="videoModal">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-body">
                     <video controls class="video-thumb video-js vjs-fluid vjs-default-skin vjs-big-play-centered" id="video-player">
