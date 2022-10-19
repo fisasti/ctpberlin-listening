@@ -342,7 +342,7 @@ h1 {
     }
     .video-thumb img {
         width: 100%;
-        max-height: 96px;
+        max-height: 80px;
     }
 }
 h4 { }
