@@ -426,7 +426,7 @@ h4 { }
                 <div style="position: relative;" class="video-thumb" data-id="{{ $video->id }}"
                 data-src="{{ $video->streamUrl }}" data-poster="{{ $video->poster }}"
                 data-subs="{{ $video->subtitles }}">
-                    <img src="{{ $video->poster }}" style="max-width: 100%; height: auto;" />
+                    <img src="{{ $video->poster }}" style="width: 100%; height: auto;" />
                     <div class="play-icon">
                     </div>
                     <div class="video-details text-left" style="display: none;">
