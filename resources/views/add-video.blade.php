@@ -340,6 +340,10 @@ h1 {
     .instructions .small {
         font-size: 1.1rem;
     }
+    .video-thumb img {
+        width: 100%;
+        max-height: 96px;
+    }
 }
 h4 { }
 .about {
