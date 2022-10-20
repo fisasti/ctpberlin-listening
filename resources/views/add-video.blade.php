@@ -2,7 +2,7 @@
 @section('content')
 <script>
     var videoPlayer = false;
-    videoId = -1;
+    currentVideo = -1;
     uploadStart = 0;
 
     function secondsToHuman(timeInSeconds) {
@@ -91,10 +91,12 @@
         var percent = $('.percent');
         var status = $('#status');
         var file = $('#upload-input');
+        var myModal = new bootstrap.Modal(document.getElementById("videoModal"), {});
         $('#error-msg').hide();
 
         $("#videoModal").on("hidden.bs.modal", function () {
             console.log('modal cerrado');
+
             if (videoPlayer)
                 videoPlayer.pause();
             // put your default event here
@@ -102,43 +104,52 @@
 
         $(document).on('click', '.video-thumb', function() {
             var videoId = $(this).data('id');
+            var videoHtml = '<video controls class="video-thumb video-js vjs-fluid vjs-default-skin vjs-big-play-centered" id="video-player"></video>';
 
             if (!videoId)
                 return false;
             
-            var src = $(this).data('src');
-            var poster = $(this).data('poster');
-            var subs = $(this).data('subs');
-            console.log('configuro video ' + videoId + ' ' + subs);
-            var myModal = new bootstrap.Modal(document.getElementById("videoModal"), {});
-
-            videoPlayer = videojs('#video-player', {
-                poster: poster,
-                sources: [{src: src, type: 'application/x-mpegURL'}],
-                tracks: [
-                    { src: subs, kind: 'captions', srclang: 'en', label: 'English', default: true}
-                ]
-            });
-
-            // FIX FOR CELL PHONES
-            videoPlayer.landscapeFullscreen({
-                fullscreen: {
-                    alwaysInLandscapeMode: true, // Always enter fullscreen in landscape mode even when device is in portrait mode (works on chromium, firefox, and ie >= 11)
+            if (currentVideo != videoId) {
+                var src = $(this).data('src');
+                var poster = $(this).data('poster');
+                var subs = $(this).data('subs');
+                console.log('configuro video ' + videoId + ' ' + subs);
+                
+                if (videoPlayer) {                
+                    videoPlayer.dispose();
+                    console.log('dispose ok');
                 }
-            });
 
-            videoPlayer.ready(function(){
-                var settings = this.textTrackSettings;
-                settings.setValues({
-                        "backgroundColor": "#000",
-                        "backgroundOpacity": "0",
-                        "edgeStyle": "uniform",
-                    });
-                    settings.updateDisplay();
-            });
+                $('#videoModal').find('.modal-body').append(videoHtml);
+                videoPlayer = videojs('video-player', {
+                    poster: poster,
+                    sources: [{src: src, type: 'application/x-mpegURL'}],
+                    tracks: [
+                        { src: subs, kind: 'captions', srclang: 'en', label: 'English', default: true}
+                    ]
+                });
+
+                // FIX FOR CELL PHONES
+                videoPlayer.landscapeFullscreen({
+                    fullscreen: {
+                        alwaysInLandscapeMode: true, // Always enter fullscreen in landscape mode even when device is in portrait mode (works on chromium, firefox, and ie >= 11)
+                    }
+                });
+
+                videoPlayer.ready(function(){
+                    var settings = this.textTrackSettings;
+                    settings.setValues({
+                            "backgroundColor": "#000",
+                            "backgroundOpacity": "0",
+                            "edgeStyle": "uniform",
+                        });
+                        settings.updateDisplay();
+                });
+                
+                currentVideo = videoId;
+            }
             
             $('#videoModal').modal('show')
-            // video.appendChild(source);
         });
         $(document).on({
             mouseenter: function () {
@@ -441,8 +452,6 @@ h4 { }
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-body">
-                    <video controls class="video-thumb video-js vjs-fluid vjs-default-skin vjs-big-play-centered" id="video-player">
-                    </video>
                 </div>
             </div>
         </div>
