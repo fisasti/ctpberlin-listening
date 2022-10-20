@@ -12,13 +12,32 @@ class VideoWalkSeeder extends Seeder
      */
     public function run()
     {
-        $videoWalk = new VideoWalk();
-        $videoWalk->videoUrl = 'https://listeningtothecity.s3.eu-central-1.amazonaws.com/videos/20-Berlin.mov';
-        $videoWalk->state = 3;
-        $videoWalk->name = 'Julián';
-        $videoWalk->city = 'Berlín';
-        $videoWalk->streamUrl = 'https://stream.mux.com/y58u8IKFwtNCl3D5h2xALBK5VOzPpyUj582Q95MGXz8.m3u8';
-        $videoWalk->muxId = 'Zy7ZTjVoFWVZT00StEDoExDv2pjoBh01enXvnFbnVGDWQ';
-        $videoWalk->save();
+        $videos = array([
+            'name' => 'Julián',
+            'city' => 'Berlín',
+            'muxId' => 'Zy7ZTjVoFWVZT00StEDoExDv2pjoBh01enXvnFbnVGDWQ',
+            'streamUrl' => 'https://stream.mux.com/y58u8IKFwtNCl3D5h2xALBK5VOzPpyUj582Q95MGXz8.m3u8',
+            'videoUrl' => 'https://listeningtothecity.s3.eu-central-1.amazonaws.com/videos/20-Berlin.mov',
+            'state' => 3
+        ], [
+            'name' => 'emilia',
+            'city' => 'buenos aires',
+            'muxId' => '5WG2odlOzBLd01drZb01LoSS8UoYayTIl5jswUs8gstmo',
+            'streamUrl' => 'https://stream.mux.com/35PLSzCsuAlgrRJdSONEN01s6IMtcybbhg5mu268HiZs.m3u8',
+            'videoUrl' => 'https://listeningtothecity.s3.eu-central-1.amazonaws.com/videos/9-buenos aires.mp4',
+            'state' => 3
+        ]);
+
+        foreach ($videos as $video) {
+            $video = (object) $video;
+            $videoWalk = new VideoWalk();
+            $videoWalk->name = $video->name;
+            $videoWalk->city = $video->city;
+            $videoWalk->muxId = $video->muxId;
+            $videoWalk->streamUrl = $video->streamUrl;
+            $videoWalk->videoUrl = $video->videoUrl;
+            $videoWalk->state = $video->state;
+            $videoWalk->save();
+        }
     }
 }
