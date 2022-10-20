@@ -377,7 +377,7 @@ h4 { }
                     <h1>INSTRUCTIONS</h1>
                     <div class="instructions">
                         01. Leave the Internet and go for a walk in the city.*<br />
-                        02. Film 10 minutes using the cellphone in horizontal format.**<br />
+                        02. Film 10 minutes using the cellphone in <u>horizontal</u> format.**<br />
                         03. Walk paying attention to the sounds and the environment.***<br />
                         04. After coming back: Upload the video to the CTP website and wait.****<br />
                         <span class="small mt-5">*You can walk alone or accompanied and at any pace (faster, slower or even stop). **Without talking. Filming is free (you are allowed to lose control, change the point of view, etc). You can use the zoom, not use it and also generate more abstract images. You don't need to be looking at what you are filming while filming. ***Let yourself be guided by sounds. ****Re-watch and re-listen to the experience while reading.</span><br />
