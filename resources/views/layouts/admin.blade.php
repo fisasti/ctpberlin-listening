@@ -6,9 +6,14 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Listening to the City') }}</title>
-    <!-- jQuery & Bootstrap -->
+    <meta property="og:url"                content="https://ctp-berlin.com/listeningtothecity/" />
+    <meta property="og:type"               content="website" />
+    <meta property="og:title"              content="Listening to the city as a form of writing" />
+    <meta property="og:description"        content="LISTENING TO THE CITY AS A FORM OF WRITING is a interactive soundwalk project by Julián Galay created especially for the Club Tipping Point Berlin´s web." />
+    <meta property="og:image"              content="https://ctp-berlin.com/listeningtothecity/img/lttc.jpg" />  
+    <title>{{ config('app.name', 'Listening to the city as a form of writing') }}</title>
+    <meta name="description" content="LISTENING TO THE CITY AS A FORM OF WRITING is a interactive soundwalk project by Julián Galay created especially for the Club Tipping Point Berlin´s web." />
+    <!-- jQuery, Bootstrap, jQuery form, videojs, videojs-http-streaming -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js" defer></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
@@ -19,20 +24,15 @@
     <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
     <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/videojs-landscape-fullscreen@11.1111.0/dist/videojs-landscape-fullscreen.min.js"></script>
-    <!--<link href="https://unpkg.com/video.js/dist/video-js.css" rel="stylesheet">
-    <script src="https://unpkg.com/video.js/dist/video.js"></script>-->
     <script src="https://unpkg.com/@videojs/http-streaming@2.15.0/dist/videojs-http-streaming.js"></script>
-    <!-- Fonts -->
-    <!-- <link rel="dns-prefetch" href="//fonts.gstatic.com"> 
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> -->
-    <!-- <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" data-auto-replace-svg="nest"></script> -->
-
+    
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script type="text/javascript">
       const API_BASE = document.location.href.indexOf('localhost') >= 0 ? '/api/' : '/listeningtothecity/api/';
       const API_TOKEN = '{{ auth()->user()->api_token }}';
     </script>
+
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
