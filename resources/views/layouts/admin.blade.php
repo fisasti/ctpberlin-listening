@@ -8,9 +8,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta property="og:url"                content="https://ctp-berlin.com/listeningtothecity/" />
     <meta property="og:type"               content="website" />
+    <meta property="og:site_name"          content="Listening to the city as a form of writing" />
     <meta property="og:title"              content="Listening to the city as a form of writing" />
     <meta property="og:description"        content="LISTENING TO THE CITY AS A FORM OF WRITING is a interactive soundwalk project by Julián Galay created especially for the Club Tipping Point Berlin´s web." />
-    <meta property="og:image"              content="https://ctp-berlin.com/listeningtothecity/img/lttc.jpg" />  
+    <meta property="og:image"              content="https://ctp-berlin.com/listeningtothecity/img/lttc.jpg" itemprop="image" />  
     <title>{{ config('app.name', 'Listening to the city as a form of writing') }}</title>
     <meta name="description" content="LISTENING TO THE CITY AS A FORM OF WRITING is a interactive soundwalk project by Julián Galay created especially for the Club Tipping Point Berlin´s web." />
     <!-- jQuery, Bootstrap, jQuery form, videojs, videojs-http-streaming -->
